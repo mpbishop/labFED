@@ -1,31 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en" ng-app>
+<head>
     <meta charset="utf-8">
     <title>Checklists To Go</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap3/dist/css/bootstrap.css">
+ 
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="lib/FontAwesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-
-    <script type="text/javascript" src="http://code.angularjs.org/1.2.0-rc.3/angular.min.js">
-    </script>
-    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-    <script src="angularFire.js" type="text/javascript"></script>  
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
-
-    <script src="javascripts/site.js" type="text/javascript"></script> 
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="../assets/ico/favicon.ico">
@@ -33,29 +19,38 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+
     <style type="text/css">
         .content{
             margin-left:0px;
         }
+        .container{
+            margin-left:0px;
+            text-align: left;
+        }
+        .checkedClass {
+        text-decoration: line-through;
+        }
     </style>
-  </head>
 
-  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
-  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
-  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
-  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--> 
-  <body class=""> 
-  <!--<![endif]-->
-    
+    <script type="text/javascript" src="http://code.angularjs.org/1.2.0-rc.3/angular.min.js">
+    </script>
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+    <script src="angularFire.js" type="text/javascript"></script>  
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+
+</head>
+  
+<body ng-controller="listController">
+  
 <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-reorder"></span>
           </button>
-          <a class="navbar-brand" href="index.html">Checklists to go</a>
+          <a class="navbar-brand" href="index.html">Checklists To Go</a>
         </div>
-        
+  
         <div class="hidden-xs">
                 <ul class="nav navbar-nav pull-right">
                     
@@ -76,35 +71,29 @@
                     </li>
                     
                 </ul>
-        </div><!--/.navbar-collapse -->
+        </div> <!--/.navbar-collapse -->
     </div>
 
     <div class="navbar-collapse collapse">
-        <div id="main-menu">
-            
-
+        <div id="main-menu">     
             <div id="phone-navigation" class="visible-xs">
-                <ul id="dashboard-menu" class="nav nav-list">
-                    
-                <li class=""><a href="#"> <span>List App</span></a></li>
-                <li class=""><a href="#" ><span>Product Catalog App</span></a></li>
-                <li class=""><a href="#" ><span>Map App</span></a></li>
-                    
-                    
+                <ul id="dashboard-menu" class="nav nav-list">              
+                <li class=""><a href="#"> <span>Home</span></a></li>
+                <li class=""><a href="#" ><span>New List</span></a></li>
+                <li class=""><a href="#" ><span>Goto List</span></a></li>                          
                 </ul>
             </div>
 
             <ul class="nav nav-tabs hidden-xs">
-                <li class="active"><a href="#"> <span>List App</span></a></li>
-                <li ><a href="#" ><span>Product Catalog App</span></a></li>
-                <li ><a href="#" ><span>Map App</span></a></li>
-                
+                <li class="active"><a href="#"> <span>Home</span></a></li>
+                <li ><a href="#" ><span>New List</span></a></li>
+                <li ><a href="#" ><span>Goto List</span></a></li>        
             </ul>
         </div>
     </div>
-    
-    
-    <div class="container">
+</div>
+
+<div class="container">
     <br>
     <form class="form-inline" role="form" ng-submit="addList()">
         <div class="form-group">
@@ -119,29 +108,98 @@
         </div>  
         <button type="submit" class="btn btn-success" >Send Checklist </button>
     </form> 
+    <br>
 </div>
+
+<div class="container">
+   <form class="form-inline" role="form" ng-submit="addItem()">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="<new item here>" ng-model="new_item">   
+             </div>
+            <button type="submit" class="btn btn-warning" >Add Item </button> 
+    </form>
     
-    <div class="content">   
-       
-    <!-- or main html body goes here?? -->
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>{{ listtitle }} checklist </h2> 
+            <ul class="list-unstyled">
+                <li ng-repeat="item in list" 
+                    ng-class="{'checkedClass': item.isChecked}">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="item.isChecked"> 
+                            <span>
+                            {{ item.linetext }}
+                            </span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br>
 
         <footer>
             <hr>
             <p class="pull-right">Design by <a href="#" target="_blank">Me</a></p>
             <p>&copy; 2013 <a href="#">wisemosaics.com</a></p>
         </footer>
-        
-    </div>
-    
-    <script src="lib/bootstrap3/dist/js/bootstrap.js"></script>
+          
     <script type="text/javascript">
         $("[rel=tooltip]").tooltip({animation:false});
         $(function() {
             $('.demo-cancel-click').click(function(){return false;});
         });
     </script>
+
+    <script type="text/javascript">
+            function listController($scope){
+                // var dbNum = Math.uuid(6, 10); ???
+                dbNum = "";
+                var dbName = "https://wisemosaics" + dbNum + ".firebaseio.com/";
+                var listFirebaseDB = new Firebase(dbName);
+                $scope.listtitle = "";
+                $scope.list = [];
+                // console.log("start controller. list has " + $scope.list.length ) ;
+                $scope.new_item = "";
+                $scope.addList = function(){
+                    /* this saves the list name for later use */
+                    $scope.listtitle = $scope.new_list ;
+                    $scope.new_list= "";
+                };
+                $scope.addItem = function(){
+                    /* this function is triggered when new item is submitted. 
+                    It appends the item to the list, unchecked by default */
+                // $scope.list.push({isChecked : false, linetext : $scope.new_item});
+                // console.log("addItem, before firebase push - list has " + $scope.list.length ) ;
+                    listFirebaseDB.push({isChecked: false, linetext : $scope.new_item});
+                //  console.log("addItem, after firebase push - list has " + $scope.list.length ) ;
+                    $scope.new_item = "";
+                };
+                listFirebaseDB.on('child_added', function(snapshot) {
+                    /* whenever any other ruser adds an item to this list, 
+                    it gets added to local list array */
+                    var alienItem = snapshot.val();
+                //  console.log("child added, before list push - list has " + $scope.list.length ) ;
+                    $scope.list.push({isChecked : alienItem.isChecked, linetext : alienItem.linetext});
+                //  console.log("child added, after list push - list has " + $scope.list.length ) ;
+                });
+                listFirebaseDB.on('child_changed', function(snapshot) {
+                    /* whenever a user changes items on list, what? 
+                    var changedItem = snapshot.val();
+                    var index = $scope.list.indexOf(changedItem);
+                    if (index > -1) {
+                        /* found item that was changed? maybe update $scope.list with changedItem?
+                        $scope.list.push({isChecked : changedItem.isChecked, linetext : changedItem.linetext});
+                    }
+                    */
+                });
+            }
+    </script>
     
-  </body>
+</body>
 </html>
 
 
