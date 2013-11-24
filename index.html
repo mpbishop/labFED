@@ -48,7 +48,7 @@
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-reorder"></span>
           </button>
-          <a class="navbar-brand" href="index.html">Checklists 2 Go</a>
+          <a class="navbar-brand" href="index.html">List 2 Go</a>
         </div>
   
         <div class="hidden-xs">
@@ -158,7 +158,7 @@
             function listController($scope){
                 // var dbNum = Math.uuid(6, 10); ???
                 dbNum = "";
-                var dbName = "https://wisemosaics" + dbNum + ".firebaseio.com/";
+                var dbName = "https://list2go" + dbNum + ".firebaseio.com/";
                 var listFirebaseDB = new Firebase(dbName);
                 $scope.listtitle = "";
                 $scope.list = [];
